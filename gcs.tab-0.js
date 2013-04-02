@@ -8,18 +8,16 @@
  * Date: 2013-2-4
  */
 
-window.onload = function()
-{
-  if (window.location.hash == 'gcs.tab=0')
+window.__gcse = {
+  callback: function()
   {
-    if (typeof window.history.replaceState == 'function')
+    if (window.location.hash)
     {
-    window.location.hash = '#';
-    history.replaceState({}, '', window.location.href.split('#')[0]);
-    }
+      window.location.hash = window.location.hash.replace(/&?gsc.tab=0/g, '');
+      if (window.location.hash == '' && typeof window.history.replaceState == 'function')
+      {
+          history.replaceState(null, '', window.location.href.split('#')[0]);
+      }
+    }    
   }
-    else if (window.location.hash) 
-  {
-    window.location.hash = window.location.hash.replace(/&?gsc.tab=0/g, '');
-  }
-}
+};
